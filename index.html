@@ -38,7 +38,6 @@
       font-weight: 800;
       color: var(--pink);
       letter-spacing: 0.5px;
-      text-decoration: none;
     }
 
     nav a {
@@ -79,13 +78,23 @@
     .cat {
       padding: 12px 18px;
       border-radius: 999px;
-      background: linear-gradient(135deg, var(--pink), var(--pink-soft));
-      color: #12000a;
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffd1ec;
       font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .cat:hover {
+      background: rgba(255, 47, 166, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .cat.active {
+      background: linear-gradient(135deg, var(--pink), var(--pink-soft));
+      color: #12000a;
       box-shadow: 0 6px 24px rgba(255,47,166,0.35);
-      text-decoration: none;
-      display: inline-block;
     }
 
     .section {
@@ -112,16 +121,19 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      text-decoration: none;
-      color: inherit;
-      display: block;
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.3s ease;
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 20px 50px rgba(255, 47, 166, 0.3);
+    .card.hidden {
+      opacity: 0;
+      transform: translateY(10px);
+      height: 0;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
+      border: 0;
     }
 
     .card::after {
@@ -158,6 +170,16 @@
       margin-bottom: 14px;
     }
 
+    .category-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background: rgba(255, 47, 166, 0.2);
+      border-radius: 12px;
+      font-size: 11px;
+      margin-right: 6px;
+      margin-bottom: 4px;
+    }
+
     .links {
       display: flex;
       gap: 10px;
@@ -175,10 +197,10 @@
       transition: all 0.2s ease;
     }
 
-    .links a:hover {
-      background: var(--pink);
-      color: #12000a;
-      text-decoration: none;
+    .links a:hover { 
+      background: var(--pink); 
+      color: #12000a; 
+      transform: scale(1.05);
     }
 
     footer {
@@ -189,18 +211,32 @@
       border-top: 1px solid rgba(255,255,255,0.08);
     }
 
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      grid-column: 1 / -1;
+      opacity: 0.7;
+      font-size: 18px;
+      display: none;
+    }
+
+    .no-results.show {
+      display: block;
+    }
+
     @media (max-width: 640px) {
       .hero h1 { font-size: 36px; }
-      header { padding: 20px; flex-direction: column; gap: 15px; }
-      nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-      nav a { margin: 0; }
+      header { padding: 16px; }
+      nav a { margin-left: 12px; font-size: 14px; }
+      .categories { gap: 10px; }
+      .cat { padding: 10px 16px; font-size: 14px; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <a href="index.html" class="logo">blogerok.store</a>
+  <div class="logo">blogerok.store</div>
   <nav>
     <a href="#anime">Аниме</a>
     <a href="#health">ЗОЖ</a>
@@ -214,86 +250,250 @@
   <p>Собираем блогеров по тематикам и платформам: TikTok, YouTube, Instagram, Telegram и не только. Молодо, дерзко, удобно.</p>
 
   <div class="categories">
-    <a href="#anime" class="cat">Аниме</a>
-    <a href="#health" class="cat">ЗОЖ</a>
-    <a href="#lifestyle" class="cat">Фитнес</a>
-    <a href="#gaming" class="cat">Гейминг</a>
-    <a href="#lifestyle" class="cat">Лайфстайл</a>
-    <a href="#education" class="cat">Образование</a>
+    <div class="cat active" data-category="all">Все блогеры</div>
+    <div class="cat" data-category="Аниме">Аниме</div>
+    <div class="cat" data-category="ЗОЖ">ЗОЖ</div>
+    <div class="cat" data-category="Фитнес">Фитнес</div>
+    <div class="cat" data-category="Гейминг">Гейминг</div>
+    <div class="cat" data-category="Лайфстайл">Лайфстайл</div>
+    <div class="cat" data-category="Образование">Образование</div>
   </div>
 </section>
 
-<section class="section" id="anime">
-  <h2>Аниме блогеры</h2>
-  <div class="grid">
-
-    <a href="bloger.html?id=1" class="card">
-      <div class="avatar">A</div>
-      <div class="name">AnimeFox</div>
-      <div class="tags">Аниме · Обзоры · Мемы</div>
-      <div class="links">
-        <span>TikTok</span>
-        <span>YouTube</span>
-        <span>Telegram</span>
-      </div>
-    </a>
-
-    <a href="bloger.html?id=2" class="card">
-      <div class="avatar">N</div>
-      <div class="name">NekoLife</div>
-      <div class="tags">Косплей · Аниме</div>
-      <div class="links">
-        <span>Instagram</span>
-        <span>TikTok</span>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<section class="section" id="health">
-  <h2>ЗОЖ блогеры</h2>
-  <div class="grid">
-
-    <a href="bloger.html?id=3" class="card">
-      <div class="avatar">Z</div>
-      <div class="name">ZojDaily</div>
-      <div class="tags">Питание · Привычки · Баланс</div>
-      <div class="links">
-        <span>YouTube</span>
-        <span>Telegram</span>
-      </div>
-    </a>
-
-  </div>
-</section>
+<main id="bloggers-container">
+  <!-- Все блогеры будут отображаться здесь -->
+</main>
 
 <footer>
   © 2026 blogerok.store · Каталог блогеров новой волны
 </footer>
 
 <script>
-  // Плавная прокрутка для якорей
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if(targetId === '#') return;
-      
-      const targetElement = document.querySelector(targetId);
-      if(targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 80,
-          behavior: 'smooth'
-        });
-      }
-    });
-  });
+  // Данные блогеров
+  const bloggers = [
+    {
+      id: 1,
+      name: "AnimeFox",
+      avatar: "A",
+      tags: "Аниме · Обзоры · Мемы",
+      categories: ["Аниме", "Гейминг"],
+      links: [
+        { platform: "TikTok", url: "#" },
+        { platform: "YouTube", url: "#" },
+        { platform: "Telegram", url: "#" }
+      ]
+    },
+    {
+      id: 2,
+      name: "NekoLife",
+      avatar: "N",
+      tags: "Косплей · Аниме",
+      categories: ["Аниме", "Лайфстайл"],
+      links: [
+        { platform: "Instagram", url: "#" },
+        { platform: "TikTok", url: "#" }
+      ]
+    },
+    {
+      id: 3,
+      name: "ZojDaily",
+      avatar: "Z",
+      tags: "Питание · Привычки · Баланс",
+      categories: ["ЗОЖ", "Фитнес", "Лайфстайл"],
+      links: [
+        { platform: "YouTube", url: "#" },
+        { platform: "Telegram", url: "#" }
+      ]
+    },
+    {
+      id: 4,
+      name: "FitGamer",
+      avatar: "F",
+      tags: "Тренировки · Игры",
+      categories: ["Фитнес", "Гейминг"],
+      links: [
+        { platform: "Twitch", url: "#" },
+        { platform: "YouTube", url: "#" }
+      ]
+    },
+    {
+      id: 5,
+      name: "EduStream",
+      avatar: "E",
+      tags: "Обучение · Разборы",
+      categories: ["Образование", "Лайфстайл"],
+      links: [
+        { platform: "YouTube", url: "#" },
+        { platform: "Telegram", url: "#" },
+        { platform: "Instagram", url: "#" }
+      ]
+    },
+    {
+      id: 6,
+      name: "HealthPro",
+      avatar: "H",
+      tags: "Здоровье · Диеты",
+      categories: ["ЗОЖ", "Фитнес"],
+      links: [
+        { platform: "Instagram", url: "#" },
+        { platform: "TikTok", url: "#" }
+      ]
+    }
+  ];
 
-  // Заглушка для кнопки "Добавить блогера"
-  document.querySelector('a[href="#add"]').addEventListener('click', function(e) {
-    e.preventDefault();
-    alert('Форма добавления блогера скоро появится!');
+  // Функция для отрисовки карточек блогеров
+  function renderBloggers(filterCategory = 'all') {
+    const container = document.getElementById('bloggers-container');
+    container.innerHTML = '';
+    
+    // Создаем секции для каждой категории
+    const categories = ['Аниме', 'ЗОЖ', 'Фитнес', 'Гейминг', 'Лайфстайл', 'Образование'];
+    
+    categories.forEach(cat => {
+      // Если выбрана конкретная категория, показываем только ее
+      if (filterCategory !== 'all' && filterCategory !== cat) return;
+      
+      // Фильтруем блогеров по категории
+      const filteredBloggers = bloggers.filter(blogger => 
+        blogger.categories.includes(cat)
+      );
+      
+      // Если нет блогеров в этой категории, пропускаем
+      if (filteredBloggers.length === 0 && filterCategory !== 'all') return;
+      
+      // Создаем секцию
+      const section = document.createElement('section');
+      section.className = 'section';
+      section.id = cat.toLowerCase();
+      
+      // Заголовок секции
+      const h2 = document.createElement('h2');
+      h2.textContent = cat + (cat === 'Аниме' ? ' блогеры' : 
+                          cat === 'ЗОЖ' ? ' блогеры' : 
+                          cat === 'Образование' ? ' блогеры' : ' блогеры');
+      section.appendChild(h2);
+      
+      // Сетка для карточек
+      const grid = document.createElement('div');
+      grid.className = 'grid';
+      
+      // Добавляем карточки
+      filteredBloggers.forEach(blogger => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.categories = blogger.categories.join(',');
+        
+        // Аватар
+        const avatar = document.createElement('div');
+        avatar.className = 'avatar';
+        avatar.textContent = blogger.avatar;
+        
+        // Имя
+        const name = document.createElement('div');
+        name.className = 'name';
+        name.textContent = blogger.name;
+        
+        // Теги
+        const tags = document.createElement('div');
+        tags.className = 'tags';
+        tags.textContent = blogger.tags;
+        
+        // Категории (скрытые баджи)
+        const categoriesDiv = document.createElement('div');
+        categoriesDiv.style.marginBottom = '10px';
+        blogger.categories.forEach(cat => {
+          const badge = document.createElement('span');
+          badge.className = 'category-badge';
+          badge.textContent = cat;
+          categoriesDiv.appendChild(badge);
+        });
+        
+        // Ссылки
+        const links = document.createElement('div');
+        links.className = 'links';
+        
+        blogger.links.forEach(link => {
+          const a = document.createElement('a');
+          a.href = link.url;
+          a.textContent = link.platform;
+          links.appendChild(a);
+        });
+        
+        // Собираем карточку
+        card.appendChild(avatar);
+        card.appendChild(name);
+        card.appendChild(categoriesDiv);
+        card.appendChild(tags);
+        card.appendChild(links);
+        
+        grid.appendChild(card);
+      });
+      
+      // Если нет блогеров в категории
+      if (filteredBloggers.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results show';
+        noResults.textContent = `Пока нет блогеров в категории "${cat}"`;
+        grid.appendChild(noResults);
+      }
+      
+      section.appendChild(grid);
+      container.appendChild(section);
+    });
+    
+    // Плавная прокрутка к первой секции при фильтрации
+    if (filterCategory !== 'all' && document.getElementById(filterCategory.toLowerCase())) {
+      setTimeout(() => {
+        document.getElementById(filterCategory.toLowerCase()).scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }, 100);
+    }
+  }
+
+  // Инициализация при загрузке
+  document.addEventListener('DOMContentLoaded', () => {
+    renderBloggers('all');
+    
+    // Обработчики кликов по категориям
+    document.querySelectorAll('.cat').forEach(catEl => {
+      catEl.addEventListener('click', () => {
+        // Убираем активный класс у всех
+        document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
+        // Добавляем активный класс кликнутому
+        catEl.classList.add('active');
+        
+        // Фильтруем блогеров
+        const category = catEl.dataset.category;
+        renderBloggers(category);
+      });
+    });
+    
+    // Обработчики для навигации в хедере
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').substring(1);
+        
+        // Находим соответствующую категорию
+        let category = 'all';
+        if (targetId === 'anime') category = 'Аниме';
+        if (targetId === 'health') category = 'ЗОЖ';
+        if (targetId === 'lifestyle') category = 'Лайфстайл';
+        
+        // Активируем кнопку категории
+        document.querySelectorAll('.cat').forEach(c => {
+          c.classList.remove('active');
+          if (c.dataset.category === category) {
+            c.classList.add('active');
+          }
+        });
+        
+        // Рендерим блогеров
+        renderBloggers(category);
+      });
+    });
   });
 </script>
 
